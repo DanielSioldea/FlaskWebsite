@@ -8,9 +8,10 @@ Shop 'Inators
     <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Barcode</th>
+            <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Actions</th>
+            <th scope="col">Owner</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@ Shop 'Inators
                 <button class="btn btn-outline btn-info">More Info</button>
                 <button class="btn btn-outline btn-success">Purchase</button>
             </td>
+            <td>{{ item.owner }}</td>
         </tr>
         {% endfor %}
 

@@ -11,6 +11,7 @@ os.makedirs(instance_path, exist_ok=True)
 app = Flask(__name__, instance_path=instance_path)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(instance_path, "shop.db")}'
+app.config['SECRET_KEY'] = 'b472c46cbe0c0ffb5d3ad861'
 db = SQLAlchemy(app)
 
 from market import routes
