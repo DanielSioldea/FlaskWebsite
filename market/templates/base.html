@@ -13,6 +13,35 @@
 
         {% endblock %}
     </title>
+    <style>
+        body {
+            background-color: #212121;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .custom-rounded {
+            border-radius: 30px;
+            /* Increase this value for more rounding */
+        }
+
+        .custom-form-width {
+            max-width: 600px;
+            /* Set a maximum width for the form */
+            width: 100%;
+            /* Ensure it takes the full width of the column */
+        }
+
+        .content-wrapper {
+            flex: 1;
+        }
+
+        .footer {
+            flex-shrink: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -63,6 +92,7 @@
 
         </div>
     </nav>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -82,7 +112,15 @@
     </div>
     <!-- Future Content here -->
 
-
+    <footer class="footer mt-auto py-3 bg-dark text-white text-center">
+        <div class="container">
+            <span class="text-muted">Follow us on:</span>
+            <a href="#" class="text-white ml-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white ml-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white ml-2"><i class="fab fa-instagram"></i></a>
+            <p class="mt-2">&copy; 2023 Doofenshmirtz Evil Inc. All rights reserved.</p>
+        </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -101,6 +139,19 @@
     body {
         background-color: #212121;
         color: white
+    }
+</style>
+<style>
+    .custom-rounded {
+        border-radius: 30px;
+        /* Increase this value for more rounding */
+    }
+</style>
+<style>
+    .custom-form-width {
+        max-width: 600px;
+        width: 100%;
+        /* Set a maximum width for the form */
     }
 </style>
 

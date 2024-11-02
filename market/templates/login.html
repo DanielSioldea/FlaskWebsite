@@ -1,36 +1,43 @@
 {% extends 'base.html' %}
 {% block title %}
-Login
+Login - Doofenshmirtz Evil Inc.
 {% endblock %}
 
 {% block content %}
 
+
 <body class="text-center">
     <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
-            {{ form.hidden_tag() }}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 custom-form-width">
+                <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark custom-rounded">
+                    <form method="POST" class="form-signin" style="color:white">
+                        {{ form.hidden_tag() }}
 
-            <img class="mb-4" src="{{ url_for('static', filename='images/perry.png') }}" alt="" width="200"
-                height="110">
-            <h1 class="h3 mb-3 font-weight-normal">Evil Identification Required</h1>
+                        <img class="mb-4 img-fluid" src="{{ url_for('static', filename='images/perry.png') }}" alt=""
+                            width="200" height="110">
+                        <h1 class="h3 mb-3 font-weight-normal">Evil Identification Required</h1>
 
-            {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="User Name") }}
+                        {{ form.username.label() }}
+                        {{ form.username(class="form-control", placeholder="User Name") }}
+                        <br>
+                        {{ form.password.label() }}
+                        {{ form.password(class="form-control", placeholder="Password") }}
 
-            {{ form.password.label() }}
-            {{ form.password(class="form-control", placeholder="Password") }}
+                        <br>
 
-            <br>
+                        {{ form.submit(class="btn btn-lg btn-primary btn-block", value="Sign In") }}
 
-            {{ form.submit(class="btn btn-lg btn-primary btn-block", value="Sign In") }}
-
-            <br>
-            <div class="checkbox mb-3">
-                <h6>Dont have an account?</h6>
-                <a class="btn btn-sm btn-secondary" href="{{ url_for('registerPage') }}">Join Us</a>
+                        <br>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <br>
-            <p class="mt-5 mb-3 text-muted">&copy; Daniel Sioldea - 2024</p>
+        </div>
     </div>
 </body>
 {% endblock %}
