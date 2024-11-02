@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+Doofenshmirtz Evil Inc.
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <img class="mb-4" src="{{ url_for('static', filename='images/logo-temp.png') }}"
+            alt="Doofenshmirtz Evil Inc. Logo" width="500" height="200">
+        <h1 class="display-4">Terms and Conditions</h1>
+        <p class="lead">For Full-Time Henchmen Positions</p>
+    </div>
+    <hr class="my-4">
+    <div class="bg-dark text-light p-4 rounded">
+        <h2>1. Employment Terms</h2>
+        <p>As a full-time henchman at Doofenshmirtz Evil Inc., you agree to the following terms and conditions:</p>
+
+        <h3>1.1 Compensation</h3>
+        <p>You will not be subsidized for any lost or stolen goods.</p>
+
+        <h3>1.2 Working Hours</h3>
+        <p>Standard working hours are from 9 AM to 5 PM, Monday to Friday. Overtime may be required during special
+            operations.</p>
+
+        <h3>1.3 Confidentiality</h3>
+        <p>All information regarding our evil plans and inventions must be kept confidential. Disclosure of any
+            proprietary information will result in immediate termination.</p>
+
+        <h3>1.4 Safety</h3>
+        <p>Doofenshmirtz Evil Inc. is not responsible for any injuries sustained during the execution of evil plans.
+            Henchmen are advised to take necessary precautions.</p>
+
+        <h3>1.5 Conduct</h3>
+        <p>Henchmen are expected to maintain a high level of professionalism and loyalty. Any acts of betrayal will be
+            dealt with severely.</p>
+
+        <h3>1.6 Termination</h3>
+        <p>Employment may be terminated at any time without notice for any breach of these terms and conditions.</p>
+
+        <h2>2. Additional Terms</h2>
+        <p>Additional terms and conditions may apply as deemed necessary by Doofenshmirtz Evil Inc.</p>
+
+        <h3>2.1 Intellectual Property</h3>
+        <p>All inventions and ideas developed during your employment are the property of Doofenshmirtz Evil Inc.</p>
+
+        <h3>2.2 Non-Compete Clause</h3>
+        <p>Henchmen are prohibited from working for any competing evil organizations for a period of two years after
+            termination.</p>
+
+        <h3>2.3 Dispute Resolution</h3>
+        <p>Any disputes arising from these terms and conditions will be resolved through arbitration in the Tri-State
+            Area.</p>
+
+        <h3>2.4 Amendments</h3>
+        <p>Doofenshmirtz Evil Inc. reserves the right to amend these terms and conditions at any time without prior
+            notice.</p>
+    </div>
+</div>
+{% endblock %}
