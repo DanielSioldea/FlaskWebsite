@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-signin" style="color:white">
+            {{ form.hidden_tag() }}
+
+            <img class="mb-4" src="{{ url_for('static', filename='images/perry.png') }}" alt="" width="200"
+                height="110">
+            <h1 class="h3 mb-3 font-weight-normal">Evil Identification Required</h1>
+
+            {{ form.username.label() }}
+            {{ form.username(class="form-control", placeholder="User Name") }}
+
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Password") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-primary btn-block", value="Sign In") }}
+
+            <br>
+            <div class="checkbox mb-3">
+                <h6>Dont have an account?</h6>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('registerPage') }}">Join Us</a>
+            </div>
+            <br>
+            <p class="mt-5 mb-3 text-muted">&copy; Daniel Sioldea - 2024</p>
+    </div>
+</body>
+{% endblock %}

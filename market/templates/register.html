@@ -27,6 +27,11 @@ Join Us
 
             <br>
             {{ form.submit(class="btn btn-lg btn-primary btn-block", value="Join Us") }}
+            <br>
+            <div class="checkbox mb-3">
+                <h6>Already have an account?</h6>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('loginPage') }}">Login</a>
+            </div>
 
         </form>
     </div>
