@@ -13,27 +13,24 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">
-                    <!-- -->
-                    {{ cart_item.name }}
-                </h5>
+            <div class="modal-header no-border">
+                <h5 class="text-center">{{ cart_item.name }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body no-border">
                 <!-- Here goes the text/paragraph -->
                 <form method="POST">
                     {{ return_form.hidden_tag() }}
                     <h4 class="text-center">Are you sure you want to return {{ cart_item.name }}?</h4>
                     <br>
                     <input id="returned_item" name="returned_item" type="hidden" value="{{ cart_item.name }}">
-                    {{ return_form.submit(class="btn btn-outline-danger btn-block") }}
+                    {{ return_form.submit(class="btn btn-outline-custom btn-block") }}
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+            <div class="modal-footer no-border">
+                <button type="button" class="btn btn-outline-custom" data-dismiss="modal">Close
                 </button>
             </div>
         </div>
@@ -45,21 +42,36 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalLabel">
-                    <!-- -->
-                    {{ cart_item.name }} Information
-                </h5>
+            <div class="modal-header no-border">
+                <div class="text-center">
+                    <h5 class="modal-title" id="ModalLabel">
+                        <!-- -->
+                        {{ cart_item.name }} Information
+                    </h5>
+                    <br>
+                    <p class="modal-title" id="ModalLabel">
+                        <!-- -->
+                        Price: ${{ cart_item.price }}
+                    </p>
+                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body no-border">
+                {% if cart_item.image %}
+                <img src="{{ url_for('static', filename='images/' + cart_item.image) }}" class="img-fluid"
+                    alt="{{ cart_item.name }}">
+                <br>
+                <br>
+                {% else %}
+                <p>No image available for this item.</p>
+                {% endif %}
                 <!-- Here goes the text/paragraph -->
                 {{ cart_item.long_description }}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+            <div class="modal-footer no-border">
+                <button type="button" class="btn btn-outline-custom" data-dismiss="modal">Close
                 </button>
             </div>
         </div>

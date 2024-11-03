@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% block title %} Shop 'Inators - Doofenshmirtz Evil Inc. {% endblock %}
 
 {% block content %}
-<div class="container-fluid mt-4 custom-container">
+<div class="container-fluid mt-1 custom-container">
     <div class="row">
-        <div class="col-8 table-container">
+        <div class="col-lg-8 table-container">
             <h2>Available Inventions</h2>
             <p>Here you can find all the 'Inators available for purchase.</p>
             <br>
@@ -37,10 +37,14 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-4 table-container">
-            <h2>Cart Items</h2>
-            <p>Please note: Refunds for used 'Inators will be half of the purchase price</p>
+        <div class="col-lg-4 table-container">
+            <h2>Shopping Cart</h2>
+            <p class="mb-0">
+                No full refunds. <a href="{{ url_for('termsPage') }}" class="text-white fw-bold">More info.</a>
+            </p>
             <br>
+            <button class="btn btn-outline-info btn-block" data-toggle="modal"
+                data-target="#Modal-Checkout">Checkout</button>
             <div class="row">
                 {% for cart_item in in_cart %}
                 {% include 'includes/cart_items_modal.html' %}
@@ -51,15 +55,11 @@
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-outline-info"
                                     style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-MoreInfo-{{ cart_item.id }}">More
-                                    Info</button>
-                                <button type="button" class="btn btn-outline-danger"
+                                    data-target="#Modal-MoreInfo-{{ cart_item.id }}">More Info</button>
+                                <button type="button" class="btn btn-outline-custom"
                                     style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-RemoveFromCart-{{ cart_item.id }}">Remove
-                                    from
-                                    cart</button>
+                                    data-target="#Modal-RemoveFromCart-{{ cart_item.id }}">Remove from cart</button>
                             </div>
-                            <p class="card-text"><strong>Additional Text</strong></p>
                         </div>
                     </div>
                 </div>

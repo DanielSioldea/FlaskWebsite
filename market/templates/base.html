@@ -22,18 +22,27 @@
             border-radius: 30px;
         }
 
+        .custom-rounded-smaller {
+            border-radius: 5px;
+        }
+
         .custom-container {
-            padding-left: 20;
-            padding-right: 20;
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         .table-container {
-            padding-left: -15;
-            padding-right: -15;
+            padding-left: 15px;
+            padding-right: 15px;
         }
 
         .content-wrapper {
             flex: 1;
+        }
+
+        .custom-wrapper {
+            width: 1920px;
+            margin: 0 auto;
         }
 
         .footer {
@@ -47,6 +56,36 @@
 
         .no-border {
             border: none !important;
+        }
+
+        .btn-outline-custom {
+            color: #F1742E;
+            /* Custom text color */
+            border-color: #ff5733;
+            /* Custom border color */
+            background-color: transparent;
+            /* Transparent background */
+        }
+
+        .btn-outline-custom:hover {
+            color: #ffffff;
+            /* Text color on hover */
+            background-color: #F1742E;
+            /* Background color on hover */
+            border-color: #ff5733;
+            /* Border color on hover */
+        }
+
+        .btn-outline-custom:focus,
+        .btn-outline-custom:active {
+            color: #fff;
+            /* Text color on focus/active */
+            background-color: #ff5733;
+            /* Background color on focus/active */
+            border-color: #ff5733;
+            /* Border color on focus/active */
+            box-shadow: 0 0 0 0.2rem rgba(255, 87, 51, 0.5);
+            /* Optional: focus shadow */
         }
     </style>
 </head>
@@ -114,7 +153,7 @@
     {% endif %}
     {% endwith %}
 
-    <div class="container-fluid mt-4 content-wrapper custom-container">
+    <div class="container-fluid mt-4 custom-wrapper custom-container">
         {% block content %}{% endblock %}
     </div>
 
