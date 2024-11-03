@@ -1,33 +1,71 @@
-{% extends 'base.html' %}
-{% block title %}
-Shop 'Inators
-{% endblock %}
+{% extends 'base.html' %} {% block title %} Shop 'Inators - Doofenshmirtz Evil Inc. {% endblock %}
 
 {% block content %}
-<table class="table table-hover table-dark">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
-            <th scope="col">Actions</th>
-            <th scope="col">Owner</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.description }}</td>
-            <td>${{ item.price }}</td>
-            <td>
-                <button class="btn btn-outline btn-info">More Info</button>
-                <button class="btn btn-outline btn-success">Purchase</button>
-            </td>
-            <td>{{ item.owner }}</td>
-        </tr>
-        {% endfor %}
-
-    </tbody>
-</table>
+<div class="container-fluid mt-4 custom-container">
+    <div class="row">
+        <div class="col-8 table-container">
+            <h2>Available Inventions</h2>
+            <p>Here you can find all the 'Inators available for purchase.</p>
+            <br>
+            <table class="table table-hover table-dark w-100">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">'Inator Preview</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Purchase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    {% include 'includes/items_modals.html' %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>
+                            <button class="btn btn-outline-info" data-toggle="modal"
+                                data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        </td>
+                        <td>${{ item.price }}</td>
+                        <td>
+                            <button class="btn btn-outline-success" data-toggle="modal"
+                                data-target="#Modal-AddToCart-{{ item.id }}">Add to cart</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4 table-container">
+            <h2>Cart Items</h2>
+            <p>Please note: Refunds for used 'Inators will be half of the purchase price</p>
+            <br>
+            <div class="row">
+                {% for cart_item in in_cart %}
+                {% include 'includes/cart_items_modal.html' %}
+                <div class="col-md-6">
+                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cart_item.name }}</h5>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-info"
+                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
+                                    data-target="#Modal-MoreInfo-{{ cart_item.id }}">More
+                                    Info</button>
+                                <button type="button" class="btn btn-outline-danger"
+                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
+                                    data-target="#Modal-RemoveFromCart-{{ cart_item.id }}">Remove
+                                    from
+                                    cart</button>
+                            </div>
+                            <p class="card-text"><strong>Additional Text</strong></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

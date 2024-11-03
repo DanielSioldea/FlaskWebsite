@@ -1,9 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}
-Doofenshmirtz Evil Inc.
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} Doofenshmirtz Evil Inc. {% endblock %} {% block content %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark custom-rounded"
     style="color: aliceblue;">
     <div class="d-flex justify-content-center align-items-center flex-column">
@@ -11,7 +6,6 @@ Doofenshmirtz Evil Inc.
             height="200">
         <h1 class="display-4 font-weight-normal">Welcome to Doofenshmirtz Evil Inc.</h1>
         <p class="lead font-weight-normal">We are the leading company in the Tri-State Area for all your evil needs.</p>
-        <a class="btn btn-outline-secondary" href="{{ url_for('registerPage') }}">Become a master menace?</a>
+        <a class="btn btn-outline-secondary" href="{{ url_for('villanyCourse') }}">Become a master menace?</a>
     </div>
-</div>
-{% endblock %}
+</div> {% endblock %}

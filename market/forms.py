@@ -25,3 +25,9 @@ class LoginForm(FlaskForm):
     username = StringField(label='User Name', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
     submit = SubmitField(label='Enter')
+
+class AddToCart(FlaskForm):
+    submit = SubmitField(label='Add to Cart')
+
+class ReturnItemForm(FlaskForm):
+    submit = SubmitField(label="Return 'Inator")

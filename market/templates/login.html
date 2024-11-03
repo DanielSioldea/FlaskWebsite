@@ -1,10 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}
-Login - Doofenshmirtz Evil Inc.
-{% endblock %}
-
-{% block content %}
-
+{% extends 'base.html' %} {% block title %} Login - Doofenshmirtz Evil Inc. {% endblock %} {% block content %}
 
 <body class="text-center">
     <div class="container">
@@ -13,31 +7,24 @@ Login - Doofenshmirtz Evil Inc.
                 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark custom-rounded">
                     <form method="POST" class="form-signin" style="color:white">
                         {{ form.hidden_tag() }}
-
                         <img class="mb-4 img-fluid" src="{{ url_for('static', filename='images/perry.png') }}" alt=""
                             width="200" height="110">
                         <h1 class="h3 mb-3 font-weight-normal">Evil Identification Required</h1>
-
                         {{ form.username.label() }}
                         {{ form.username(class="form-control", placeholder="User Name") }}
                         <br>
                         {{ form.password.label() }}
                         {{ form.password(class="form-control", placeholder="Password") }}
-
                         <br>
-
                         {{ form.submit(class="btn btn-lg btn-primary btn-block", value="Sign In") }}
-
                         <br>
                         <div class="checkbox mb-3">
                             <label>
-                                <input type="checkbox" value="remember-me"> Remember me
-                            </label>
+                                <input type="checkbox" value="remember-me"> Remember me </label>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
-{% endblock %}
+</body> {% endblock %}

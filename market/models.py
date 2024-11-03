@@ -30,6 +30,12 @@ class User(db.Model, UserMixin):
 
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
+    
+    def can_purchase(self, item_obj):
+        return self.budget >= item_obj.price
+    
+    def can_sell(self, item_obj):
+        return item_obj in self.items
 
     def __repr__(self):
         return f'User {self.username}'
@@ -38,9 +44,21 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
     description = db.Column(db.String(500), nullable=False)
+    long_description = db.Column(db.String(1000), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     barcode = db.Column(db.String(12), nullable=False, unique=True)
     owner = db.Column(db.Integer, db.ForeignKey('user.id')) 
+    image = db.Column(db.String(100), nullable=True)
 
     def __repr__(self):
         return f'Item {self.name}'
+    
+    def buy(self, user):
+        self.owner = user.id
+        user.budget -= self.price
+        db.session.commit()
+
+    def sell(self, user):
+        self.owner = None
+        user.budget += self.price // 2
+        db.session.commit()

@@ -1,0 +1,83 @@
+<style>
+    .modal-body {
+        text-align: justify;
+    }
+
+    .modal-content {
+        background-color: #212121;
+    }
+
+    .close {
+        color: red;
+    }
+
+    .close:hover {
+        color: darkred;
+    }
+</style>
+
+<!-- More Info -->
+<div class="modal fade" id="Modal-MoreInfo-{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header no-border">
+                <h5 class="modal-title" id="ModalLabel">
+                    <!-- -->
+                    {{ item.name }} Information
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body no-border">
+                {% if item.image %}
+                <img src="{{ url_for('static', filename='images/' + item.image) }}" class="img-fluid"
+                    alt="{{ item.name }}">
+                <br>
+                <br>
+                {% else %}
+                <p>No image available for this item.</p>
+                {% endif %}
+                <!-- Here goes the text/paragraph -->
+                {{ item.long_description }}
+            </div>
+            <div class="modal-footer no-border">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add to cart -->
+<div class="modal fade" id="Modal-AddToCart-{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">
+                    <!-- -->
+                    {{ item.name }}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Here goes the text/paragraph -->
+                <form method="POST">
+                    {{ add_to_cart_form.hidden_tag() }}
+                    <h4 class="text=center">Add {{ item.name }} to cart?</h4>
+                    <br>
+                    <input id="cart_item" name="cart_item" type="hidden" value="{{ item.name }}">
+                    {{ add_to_cart_form.submit(class="btn btn-outline-success btn-block") }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
