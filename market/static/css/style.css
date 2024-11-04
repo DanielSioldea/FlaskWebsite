@@ -1,0 +1,241 @@
+body {
+    background-color: #212121;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.custom-rounded {
+    border-radius: 30px;
+}
+
+.custom-rounded-smaller {
+    border-radius: 5px;
+}
+
+.custom-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.table-container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.content-wrapper {
+    flex: 1;
+}
+
+.custom-wrapper {
+    width: 1920px;
+    margin: 0 auto;
+}
+
+.footer {
+    flex-shrink: 0;
+}
+
+.flash-message {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.btn-outline-custom {
+    color: #F1742E;
+    /* Custom text color */
+    border-color: #ff5733;
+    /* Custom border color */
+    background-color: transparent;
+    /* Transparent background */
+}
+
+.btn-outline-custom:hover {
+    color: #ffffff;
+    /* Text color on hover */
+    background-color: #F1742E;
+    /* Background color on hover */
+    border-color: #ff5733;
+    /* Border color on hover */
+}
+
+.btn-outline-custom:focus,
+.btn-outline-custom:active {
+    color: #fff;
+    /* Text color on focus/active */
+    background-color: #ff5733;
+    /* Background color on focus/active */
+    border-color: #ff5733;
+    /* Border color on focus/active */
+    box-shadow: 0 0 0 0.2rem rgba(255, 87, 51, 0.5);
+    /* Optional: focus shadow */
+}
+
+.fade-out {
+    transition: opacity 1s ease-out;
+    opacity: 0;
+}
+
+.flash-messages {
+    position: fixed;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    /* Ensure it appears above other content */
+    width: auto;
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    background-color: #646d78;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #b8b8b8;
+    color: #000;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    /* Add transition for width and height */
+}
+
+.chat-window.open {
+    display: flex;
+    width: 300px;
+    /* Final width */
+    height: 400px;
+    /* Final height */
+    transition: width 0.5s ease, height 0.5s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.chat-window.closing {
+    opacity: 0;
+    /* Fade out */
+    transition: width 0.5s ease-out, height 0.5s ease-out, opacity 0.3s ease-out;
+    pointer-events: none;
+    /* Prevent interaction while closing */
+}
+
+.chat-window.open.animating {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.chat-header {
+    background-color: #484f55;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chat-header .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #F07431;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-footer {
+    padding: 10px;
+    border-top: 1px solid darkgray;
+}
+
+.resize-handle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+    border-top-left-radius: 10px;
+}
+
+.resize-handle::before,
+.resize-handle::after,
+.resize-handle div {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background-color: #2a2a2a;
+    transform: rotate(45deg);
+}
+
+.resize-handle::before {
+    top: 2px;
+    left: 6px;
+}
+
+.resize-handle::after {
+    top: 6px;
+    left: 10px;
+}
+
+.resize-handle div {
+    top: 10px;
+    left: 14px;
+}
+
+.custom-cart-item {
+    background-color: #2b3035;
+    color: white;
+}
+
+.custom-cart-total {
+    background-color: #212529;
+    color: white;
+}
+
+.form-line {
+    background-color: #1c1f22;
+    color: white;
+    border: 1px solid #6d6d6d;
+}
+
+.form-line:focus {
+    background-color: #1c1f22;
+    color: white;
+}
+
+.form-check-input {
+    background-color: #1c1f22;
+    border: #6d6d6d;
+}

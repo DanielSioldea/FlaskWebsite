@@ -1,5 +1,5 @@
 from market import app
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, session
 from market.models import Item, User
 from market.forms import RegisterForm, LoginForm, AddToCart, ReturnItemForm
 from market import db
@@ -13,6 +13,10 @@ def homePage():
 @app.route('/shop', methods=['GET', 'POST'])
 @login_required
 def shopPage():
+
+    if 'cart_item' not in session:
+        session['cart_item'] = []
+
     add_to_cart_form = AddToCart()
     return_form = ReturnItemForm()
     if request.method == 'POST':
@@ -24,8 +28,11 @@ def shopPage():
             if current_user.can_purchase(item_to_add):
                 flash(f'{item_to_add.name} added to your cart!', category='success')
                 item_to_add.buy(current_user)
+                session['cart_item'].append(item_to_add.name)
+                session.modified = True
             else:
                 flash(f"Unfortunately, you don't have enough funds to purchase the {item_to_add.name}!", category='danger')
+
         # Return/remove from cart logic
         item_to_remove = request.form.get('returned_item')
         item_to_return = Item.query.filter_by(name=item_to_remove).first()
@@ -34,15 +41,62 @@ def shopPage():
             if current_user.can_sell(item_to_return):
                 flash(f'{item_to_return.name} has been returned and you have been refunded ${ item_to_return.price // 2 }!', category='info')
                 item_to_return.sell(current_user)
+                if item_to_return.name in session['cart_item']:
+                    session['cart_item'].remove(item_to_return.name)
+                    session.modified = True
             else:
                 flash(f"You can't return an item you don't own! You might be more evil than I thought!", category='danger')
+
         return redirect(url_for('shopPage'))
     
     if request.method == 'GET':
         items = Item.query.filter_by(owner=None)
-        in_cart = Item.query.filter_by(owner=current_user.id)
-        return render_template('shop.html', items=items, add_to_cart_form=add_to_cart_form, in_cart=in_cart, return_form=return_form)
+        owned_item = Item.query.filter_by(owner=current_user.id)
+        in_cart = Item.query.filter(Item.name.in_(session['cart_item']))
+        return render_template('shop.html', items=items, add_to_cart_form=add_to_cart_form, in_cart=in_cart, owned_item=owned_item, return_form=return_form)
 
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profilePage():
+    add_to_cart_form = AddToCart()
+    return_form = ReturnItemForm()
+    cart_items = Item.query.filter(Item.name.in_(session['cart_item'])).all()
+
+    # Return/remove from cart logic
+    item_to_remove = request.form.get('returned_item')
+    item_to_return = Item.query.filter_by(name=item_to_remove).first()
+
+    if request.method == 'POST':
+        if item_to_return:
+            if current_user.can_sell(item_to_return):
+                flash(f'{item_to_return.name} has been returned and you have been refunded ${ item_to_return.price // 2 }!', category='info')
+                item_to_return.sell(current_user)
+                if item_to_return.name in session['cart_item']:
+                        session['cart_item'].remove(item_to_return.name)
+                        session.modified = True
+            else:
+                flash(f"You can't return an item you don't own! You might be more evil than I thought!", category='danger')
+        return redirect(url_for('profilePage'))
+
+    return render_template('profile.html', cart_items=cart_items, add_to_cart_form=add_to_cart_form, return_form=return_form)
+
+@app.route('/checkout', methods=['GET', 'POST'])
+@login_required
+def checkoutPage():
+    if request.method == 'POST':
+        session.pop('cart_item', None)
+        flash('Thank you for shopping with us! Your items will be shipped to you in 3-5 business days!', category='success')
+        return redirect(url_for('homePage'))
+    
+    add_to_cart_form = AddToCart()
+    cart_items = Item.query.filter(Item.name.in_(session['cart_item'])).all()
+
+    total_price = sum(item.price for item in cart_items)
+    cart_count = len(cart_items)
+
+    return render_template('checkout.html', cart_items=cart_items, add_to_cart_form=add_to_cart_form, total_price=total_price, cart_count=cart_count)
+
+    
 
 @app.route('/villanyCourse')
 @login_required

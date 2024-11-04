@@ -2,70 +2,43 @@
 
 {% block content %}
 <div class="container-fluid mt-1 custom-container">
-    <div class="row">
-        <div class="col-lg-8 table-container">
-            <h2>Available Inventions</h2>
-            <p>Here you can find all the 'Inators available for purchase.</p>
-            <br>
-            <table class="table table-hover table-dark w-100">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">'Inator Preview</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Purchase</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in items %}
-                    {% include 'includes/items_modals.html' %}
-                    <tr>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.description }}</td>
-                        <td>
-                            <button class="btn btn-outline-info" data-toggle="modal"
-                                data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
-                        </td>
-                        <td>${{ item.price }}</td>
-                        <td>
-                            <button class="btn btn-outline-success" data-toggle="modal"
-                                data-target="#Modal-AddToCart-{{ item.id }}">Add to cart</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-4 table-container">
-            <h2>Shopping Cart</h2>
-            <p class="mb-0">
-                No full refunds. <a href="{{ url_for('termsPage') }}" class="text-white fw-bold">More info.</a>
-            </p>
-            <br>
-            <div class="mb-3"><button class="btn btn-outline-info btn-block" data-toggle="modal"
-                    data-target="#Modal-Checkout">Checkout</button>
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="text-center">
+                <h1>Available Inventions</h1>
+                <p>Here you can find all the 'Inators available for purchase.</p>
             </div>
-
-            <div class="row mb-3">
-                {% for cart_item in in_cart %}
-                {% include 'includes/cart_items_modal.html' %}
-                <div class="col-md-6">
-                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cart_item.name }}</h5>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-outline-info"
-                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-MoreInfo-{{ cart_item.id }}">More Info</button>
-                                <button type="button" class="btn btn-outline-custom"
-                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-RemoveFromCart-{{ cart_item.id }}">Remove from cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+            <br>
+            <div class="table-responsive">
+                <table class="table table-hover table-dark w-100" style="font-size: 1.25rem;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">'Inator Preview</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Purchase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        {% include 'includes/items_modals.html' %}
+                        <tr>
+                            <td class="align-middle">{{ item.name }}</td>
+                            <td class="align-middle">{{ item.description }}</td>
+                            <td class="align-middle">
+                                <button class="btn btn-outline-info btn-lg" data-toggle="modal"
+                                    data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                            </td>
+                            <td class="align-middle">${{ item.price }}</td>
+                            <td class="align-middle">
+                                <button class="btn btn-outline-success btn-lg" data-toggle="modal"
+                                    data-target="#Modal-AddToCart-{{ item.id }}">Add to cart</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -9,90 +9,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title>{% block title %}Doofenshmirtz Evil Inc.{% endblock %}</title>
-    <style>
-        body {
-            background-color: #212121;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .custom-rounded {
-            border-radius: 30px;
-        }
-
-        .custom-rounded-smaller {
-            border-radius: 5px;
-        }
-
-        .custom-container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .table-container {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        .content-wrapper {
-            flex: 1;
-        }
-
-        .custom-wrapper {
-            width: 1920px;
-            margin: 0 auto;
-        }
-
-        .footer {
-            flex-shrink: 0;
-        }
-
-        .flash-message {
-            margin: 0 auto;
-            width: fit-content;
-        }
-
-        .no-border {
-            border: none !important;
-        }
-
-        .btn-outline-custom {
-            color: #F1742E;
-            /* Custom text color */
-            border-color: #ff5733;
-            /* Custom border color */
-            background-color: transparent;
-            /* Transparent background */
-        }
-
-        .btn-outline-custom:hover {
-            color: #ffffff;
-            /* Text color on hover */
-            background-color: #F1742E;
-            /* Background color on hover */
-            border-color: #ff5733;
-            /* Border color on hover */
-        }
-
-        .btn-outline-custom:focus,
-        .btn-outline-custom:active {
-            color: #fff;
-            /* Text color on focus/active */
-            background-color: #ff5733;
-            /* Background color on focus/active */
-            border-color: #ff5733;
-            /* Border color on focus/active */
-            box-shadow: 0 0 0 0.2rem rgba(255, 87, 51, 0.5);
-            /* Optional: focus shadow */
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url_for('homePage') }}">Doofenshmirtz Evil Inc.</a>
+        <a class="navbar-brand" href="{{ url_for('homePage') }}">
+            <img src="{{ url_for('static', filename='images/logo-temp.png') }}" width="120" height="50"
+                class="d-inline-block align-top" alt="Doofenshmirtz Evil Inc.">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -119,7 +44,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Welcome, {{ current_user.username }}</a>
+                    <a class="nav-link" href="{{ url_for('profilePage') }}">{{ current_user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('checkoutPage') }}">Checkout</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ url_for('logoutPage') }}">Logout</a>
@@ -166,18 +94,148 @@
         </div>
     </footer>
 
+    <!-- Chat Button -->
+    <button class="chat-button" onclick="toggleChat()">
+        <img src="{{ url_for('static', filename='images/docpfp.png') }}" alt="Chat" class="chat-button">
+    </button>
+
+    <!-- Chat Window -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header text-center">
+            <h5>Talk with the Doc.</h5>
+            <button type="button" class="close" onclick="toggleChat()">
+                <span>&times;</span>
+        </div>
+        <div class="chat-body">
+            <p>Welcome to the chat!</p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" class="form-control" placeholder="Type a message...">
+        </div>
+        <div class="resize-handle"></div>
+    </div>
+
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <!-- jQuery first -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper.js and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+
+    <!-- Your custom fading script -->
+    <script>
+        console.log("jQuery version:", jQuery.fn.jquery); // Debugging line
+        $(document).ready(function () {
+            setTimeout(function () {
+                $(".alert").fadeOut("slow", function () {
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+
+        // JavaScript to toggle chat window
+        function toggleChat() {
+            var chatWindow = document.getElementById('chatWindow');
+
+            if (chatWindow.classList.contains('open')) {
+                chatWindow.classList.add('closing');
+                chatWindow.classList.remove('open');
+
+                setTimeout(function () {
+                    chatWindow.classList.remove('closing');
+                    chatWindow.style.display = 'none';
+                }, 300); // Match the transition duration
+            } else {
+                chatWindow.style.display = 'flex';
+                setTimeout(function () {
+                    chatWindow.classList.add('open');
+                }, 10); // Slight delay to trigger the transition
+            }
+        }
+
+        // JavaScript to handle resizing
+        const chatWindow = document.getElementById('chatWindow');
+        const resizeHandle = document.querySelector('.resize-handle');
+
+        // Set min and max dimensions
+        const minWidth = 250; // Minimum width
+        const minHeight = 150; // Minimum height
+        const maxWidth = 600; // Maximum width
+        const maxHeight = 600; // Maximum height
+
+        resizeHandle.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+            window.addEventListener('mousemove', resize);
+            window.addEventListener('mouseup', stopResize);
+        });
+
+        function resize(e) {
+            let newWidth = chatWindow.offsetWidth - (e.clientX - chatWindow.offsetLeft);
+            let newHeight = chatWindow.offsetHeight - (e.clientY - chatWindow.offsetTop);
+
+            // Apply min and max constraints
+            newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+            newHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
+
+            // Update the size of the chat window
+            chatWindow.style.width = newWidth + 'px';
+            chatWindow.style.height = newHeight + 'px';
+
+            // Adjust position to keep it in bottom right
+            chatWindow.style.bottom = '80px'; // Fixed bottom distance
+            chatWindow.style.right = '20px'; // Fixed right distance
+        }
+
+        function stopResize() {
+            window.removeEventListener('mousemove', resize);
+            window.removeEventListener('mouseup', stopResize);
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const countrySelect = document.getElementById('country');
+            const stateSelect = document.getElementById('state');
+
+            // Object mapping countries to their respective states/provinces
+            const states = {
+                US: ['AL', 'AK', 'AZ', 'AR', 'AS', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL',
+                    'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH',
+                    'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM',
+                    'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC',
+                    'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'],
+
+                CAN: ['AB', 'BC', 'MB', 'NT', 'NU', 'ON', 'PEI', 'QC', 'SK', 'YT']
+            };
+
+            // Function to update state dropdown based on selected country
+            function updateStateOptions(countryCode) {
+                // Clear out existing options in state select
+                stateSelect.innerHTML = '<option value="">Choose...</option>';
+
+                if (states[countryCode]) {
+                    // Add new options for the selected country
+                    states[countryCode].forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state;
+                        option.textContent = state;
+                        stateSelect.appendChild(option);
+                    });
+                }
+            }
+
+            // Event listener for when the country selection changes
+            countrySelect.addEventListener('change', function () {
+                const selectedCountry = countrySelect.value;
+                updateStateOptions(selectedCountry);
+            });
+        });
+    </script>
 </body>
 
 </html>
