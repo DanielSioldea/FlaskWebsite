@@ -5,34 +5,55 @@
     <div class="row">
         <div class="col-lg-12 table-container">
             <div class="text-center">
-                <h2>Welcome {{ current_user.username }}!</h2>
-                <p class="mb-3">
-                    View your shopping cart items below</a>
-                </p>
+                <h1>Welcome {{ current_user.username }}!</h1>
             </div>
             <br>
-            <div class="row mb-3">
-                {% for cart_item in cart_items %}
-                {% include 'includes/cart_items_modal.html' %}
-                <div class="col-md-6">
-                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cart_item.name }}</h5>
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-outline-info"
-                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-MoreInfo-{{ cart_item.id }}">More Info</button>
-                                <button type="button" class="btn btn-outline-custom"
-                                    style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
-                                    data-target="#Modal-RemoveFromCart-{{ cart_item.id }}">Remove from cart</button>
+            <div class="container-fluid mt-1 custom-container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div>
+                            <h3 class="mb-3">
+                                Browse your available 'Inators below!
+                            </h3>
+                            <p>* Please note a refund of half the original
+                                price will be issued to any returned any 'Inator. <a href="{{ url_for('termsPage') }}"
+                                    class="text-white fw-bold">Learn
+                                    more.</a>
+                            </p>
+                        </div>
+                        <div class="row mb-3">
+                            {% for item in owned_item %}
+                            {% include 'includes/cart_items_modal.html' %}
+                            <div class="col-12 mb-4">
+                                <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.name }}</h5>
+                                        <div class="modal-body no-border">
+                                            {% if item.image %}
+                                            <img src="{{ url_for('static', filename='images/' + item.image) }}"
+                                                class="img-fluid" alt="{{ item.name }}">
+                                            <br>
+                                            <br>
+                                            {% else %}
+                                            <p>No image available for this item.</p>
+                                            {% endif %}
+                                            <!-- Here goes the text/paragraph -->
+                                            {{ item.long_description }}
+                                        </div>
+                                        <p class="card-text">Refund Price: ${{ item.price // 2 }}</p>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-custom"
+                                                style="margin-bottom: 5px; font-size: 0.9rem;" data-toggle="modal"
+                                                data-target="#Modal-RemoveFromCart-{{ item.id }}">Return
+                                                'Inator</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-            </div>
-            <div class="mb-3 mt-3">
-                <a class="btn btn-outline-info btn-block" href="{{ url_for('checkoutPage') }}">Checkout</a>
             </div>
         </div>
     </div>

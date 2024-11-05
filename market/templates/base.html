@@ -50,7 +50,7 @@
                     <a class="nav-link" href="{{ url_for('checkoutPage') }}">Checkout</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ url_for('logoutPage') }}">Logout</a>
+                    <a class="nav-link" href="{{ url_for('logoutPage') }}" id="logoutLink">Logout</a>
                 </li>
             </ul>
             {% else %}
@@ -115,11 +115,7 @@
         <div class="resize-handle"></div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper.js and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
@@ -127,115 +123,9 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 
-    <!-- Your custom fading script -->
-    <script>
-        console.log("jQuery version:", jQuery.fn.jquery); // Debugging line
-        $(document).ready(function () {
-            setTimeout(function () {
-                $(".alert").fadeOut("slow", function () {
-                    $(this).remove();
-                });
-            }, 5000);
-        });
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
-        // JavaScript to toggle chat window
-        function toggleChat() {
-            var chatWindow = document.getElementById('chatWindow');
 
-            if (chatWindow.classList.contains('open')) {
-                chatWindow.classList.add('closing');
-                chatWindow.classList.remove('open');
-
-                setTimeout(function () {
-                    chatWindow.classList.remove('closing');
-                    chatWindow.style.display = 'none';
-                }, 300); // Match the transition duration
-            } else {
-                chatWindow.style.display = 'flex';
-                setTimeout(function () {
-                    chatWindow.classList.add('open');
-                }, 10); // Slight delay to trigger the transition
-            }
-        }
-
-        // JavaScript to handle resizing
-        const chatWindow = document.getElementById('chatWindow');
-        const resizeHandle = document.querySelector('.resize-handle');
-
-        // Set min and max dimensions
-        const minWidth = 250; // Minimum width
-        const minHeight = 150; // Minimum height
-        const maxWidth = 600; // Maximum width
-        const maxHeight = 600; // Maximum height
-
-        resizeHandle.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-            window.addEventListener('mousemove', resize);
-            window.addEventListener('mouseup', stopResize);
-        });
-
-        function resize(e) {
-            let newWidth = chatWindow.offsetWidth - (e.clientX - chatWindow.offsetLeft);
-            let newHeight = chatWindow.offsetHeight - (e.clientY - chatWindow.offsetTop);
-
-            // Apply min and max constraints
-            newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
-            newHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
-
-            // Update the size of the chat window
-            chatWindow.style.width = newWidth + 'px';
-            chatWindow.style.height = newHeight + 'px';
-
-            // Adjust position to keep it in bottom right
-            chatWindow.style.bottom = '80px'; // Fixed bottom distance
-            chatWindow.style.right = '20px'; // Fixed right distance
-        }
-
-        function stopResize() {
-            window.removeEventListener('mousemove', resize);
-            window.removeEventListener('mouseup', stopResize);
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const countrySelect = document.getElementById('country');
-            const stateSelect = document.getElementById('state');
-
-            // Object mapping countries to their respective states/provinces
-            const states = {
-                US: ['AL', 'AK', 'AZ', 'AR', 'AS', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL',
-                    'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH',
-                    'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM',
-                    'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC',
-                    'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'],
-
-                CAN: ['AB', 'BC', 'MB', 'NT', 'NU', 'ON', 'PEI', 'QC', 'SK', 'YT']
-            };
-
-            // Function to update state dropdown based on selected country
-            function updateStateOptions(countryCode) {
-                // Clear out existing options in state select
-                stateSelect.innerHTML = '<option value="">Choose...</option>';
-
-                if (states[countryCode]) {
-                    // Add new options for the selected country
-                    states[countryCode].forEach(state => {
-                        const option = document.createElement('option');
-                        option.value = state;
-                        option.textContent = state;
-                        stateSelect.appendChild(option);
-                    });
-                }
-            }
-
-            // Event listener for when the country selection changes
-            countrySelect.addEventListener('change', function () {
-                const selectedCountry = countrySelect.value;
-                updateStateOptions(selectedCountry);
-            });
-        });
-    </script>
 </body>
 
 </html>

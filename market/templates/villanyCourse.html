@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block title %} Become a master villain! {% endblock %} {% block content %}
+{% extends 'base.html' %} {% block title %} Become a master villain! {% endblock %}
+
+{% block content %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark custom-rounded"
     style="color: aliceblue;">
     <div class="d-flex justify-content-center align-items-center flex-column">
@@ -18,7 +20,9 @@
                 <h1 class="display-4 fst-italic">Dr. Doofenshmirtz Ultimate Guide to all things Evil! </h1>
                 <p class="lead my-3">Read up on the most up-to-date guide on being the best villain you can be!
                     This guide has all the latest gizmos and doohickeys you need to know to be one step ahead. </p>
-                <p class="lead mb-0"><a href="{{ url_for('shopPage') }}" class="text-white fw-bold">Continue
+                <p class="lead mb-0"><a
+                        href="https://phineasandferb.fandom.com/wiki/List_of_Doofenshmirtz%27s_schemes_and_inventions"
+                        class="text-white fw-bold" target="_blank">Continue
                         reading...</a>
                 </p>
             </div>

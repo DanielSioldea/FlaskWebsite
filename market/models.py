@@ -53,6 +53,10 @@ class Item(db.Model):
     def __repr__(self):
         return f'Item {self.name}'
     
+    def atc(self, user):
+        self.owner = user.id
+        db.session.commit()
+
     def buy(self, user):
         self.owner = user.id
         user.budget -= self.price

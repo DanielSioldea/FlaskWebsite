@@ -1,7 +1,7 @@
 from market import app
 from flask import render_template, redirect, url_for, flash, request, session
 from market.models import Item, User
-from market.forms import RegisterForm, LoginForm, AddToCart, ReturnItemForm
+from market.forms import RegisterForm, LoginForm, AddToCart, ReturnItemForm, CheckoutForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -27,7 +27,6 @@ def shopPage():
         if item_to_add:
             if current_user.can_purchase(item_to_add):
                 flash(f'{item_to_add.name} added to your cart!', category='success')
-                item_to_add.buy(current_user)
                 session['cart_item'].append(item_to_add.name)
                 session.modified = True
             else:
@@ -60,7 +59,7 @@ def shopPage():
 def profilePage():
     add_to_cart_form = AddToCart()
     return_form = ReturnItemForm()
-    cart_items = Item.query.filter(Item.name.in_(session['cart_item'])).all()
+    owned_item = Item.query.filter_by(owner=current_user.id).all()
 
     # Return/remove from cart logic
     item_to_remove = request.form.get('returned_item')
@@ -71,30 +70,38 @@ def profilePage():
             if current_user.can_sell(item_to_return):
                 flash(f'{item_to_return.name} has been returned and you have been refunded ${ item_to_return.price // 2 }!', category='info')
                 item_to_return.sell(current_user)
-                if item_to_return.name in session['cart_item']:
-                        session['cart_item'].remove(item_to_return.name)
-                        session.modified = True
+                db.session.commit()
             else:
                 flash(f"You can't return an item you don't own! You might be more evil than I thought!", category='danger')
         return redirect(url_for('profilePage'))
 
-    return render_template('profile.html', cart_items=cart_items, add_to_cart_form=add_to_cart_form, return_form=return_form)
+    return render_template('profile.html', owned_item=owned_item, add_to_cart_form=add_to_cart_form, return_form=return_form)
 
 @app.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkoutPage():
+    checkout_form = CheckoutForm()
+    
+    # Check if 'cart_item' exists in session
+    if 'cart_item' in session:
+        cart_items = Item.query.filter(Item.name.in_(session['cart_item'])).all()
+    else:
+        cart_items = []
+
     if request.method == 'POST':
+        for item in cart_items:
+            item.owner = current_user.id
+        db.session.commit()
+        item.buy(current_user)
         session.pop('cart_item', None)
         flash('Thank you for shopping with us! Your items will be shipped to you in 3-5 business days!', category='success')
-        return redirect(url_for('homePage'))
+        return redirect(url_for('profilePage'))
     
     add_to_cart_form = AddToCart()
-    cart_items = Item.query.filter(Item.name.in_(session['cart_item'])).all()
-
     total_price = sum(item.price for item in cart_items)
     cart_count = len(cart_items)
 
-    return render_template('checkout.html', cart_items=cart_items, add_to_cart_form=add_to_cart_form, total_price=total_price, cart_count=cart_count)
+    return render_template('checkout.html', cart_items=cart_items, add_to_cart_form=add_to_cart_form, total_price=total_price, cart_count=cart_count, checkout_form=checkout_form)
 
     
 

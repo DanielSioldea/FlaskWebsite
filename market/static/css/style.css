@@ -4,6 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .custom-rounded {
@@ -170,7 +171,7 @@ body {
 .chat-body {
     flex: 1;
     padding: 10px;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .chat-footer {
