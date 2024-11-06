@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models import User
 
@@ -30,6 +30,14 @@ class AddToCart(FlaskForm):
     submit = SubmitField(label='Add to Cart')
 
 class CheckoutForm(FlaskForm):
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
+    email = StringField('Email', validators=[Email()])
+    address = StringField('Address', validators=[DataRequired()])
+    address2 = StringField('Address 2')
+    city = StringField('City', validators=[DataRequired()])
+    zip_code = StringField('Zip code', validators=[DataRequired()])
+    save_info = BooleanField('Save this information for next time')
     submit = SubmitField(label='Checkout')
 
 class ReturnItemForm(FlaskForm):

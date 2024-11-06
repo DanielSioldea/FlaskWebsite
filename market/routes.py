@@ -80,7 +80,15 @@ def profilePage():
 @app.route('/checkout', methods=['GET', 'POST'])
 @login_required
 def checkoutPage():
-    checkout_form = CheckoutForm()
+    checkout_form = CheckoutForm(
+        first_name=current_user.billing_first_name,
+        last_name=current_user.billing_last_name,
+        email=current_user.email_address,
+        address=current_user.billing_address,
+        address2=current_user.billing_address2,
+        city=current_user.billing_city,
+        zip_code=current_user.billing_zip_code
+    )
     
     # Check if 'cart_item' exists in session
     if 'cart_item' in session:
@@ -88,14 +96,33 @@ def checkoutPage():
     else:
         cart_items = []
 
-    if request.method == 'POST':
+    if request.method == 'POST' and checkout_form.validate_on_submit():
         for item in cart_items:
             item.owner = current_user.id
         db.session.commit()
         item.buy(current_user)
+
+        
+            # Save billing information for next time
+        if checkout_form.save_info.data:
+            current_user.billing_first_name = checkout_form.first_name.data
+            current_user.billing_last_name = checkout_form.last_name.data
+            current_user.billing_address = checkout_form.address.data
+            current_user.billing_address2 = checkout_form.address2.data
+            current_user.billing_city = checkout_form.city.data
+            current_user.billing_zip_code = checkout_form.zip_code.data
+            db.session.commit()
+
         session.pop('cart_item', None)
         flash('Thank you for shopping with us! Your items will be shipped to you in 3-5 business days!', category='success')
         return redirect(url_for('profilePage'))
+    else:
+        # Print form errors to the console
+        print(checkout_form.errors)
+        # Flash form errors to the user
+        for field, errors in checkout_form.errors.items():
+            for error in errors:
+                flash(f"Error in {getattr(checkout_form, field).label.text}: {error}", category='danger')
     
     add_to_cart_form = AddToCart()
     total_price = sum(item.price for item in cart_items)

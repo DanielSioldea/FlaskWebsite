@@ -8,6 +8,17 @@ $(document).ready(function () {
     }, 5000);
 });
 
+// Checkout disable/enable feature
+document.addEventListener('DOMContentLoaded', function () {
+    var checkoutButton = document.getElementById('checkoutButton');
+    var cartCount = parseInt(document.getElementById('cart-count').getAttribute('data-cart-count'), 10) || 0;
+
+    // Disable the checkout button if the cart is empty
+    if (cartCount === 0) {
+        checkoutButton.disabled = true;
+    }
+});
+
 // JavaScript to toggle chat window
 function toggleChat() {
     var chatWindow = document.getElementById('chatWindow');

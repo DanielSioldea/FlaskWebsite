@@ -8,6 +8,12 @@ def load_user(user_id):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False, unique=True)
+    billing_first_name = db.Column(db.String(30), nullable=True)
+    billing_last_name = db.Column(db.String(30), nullable=True)
+    billing_address = db.Column(db.String(100), nullable=True)
+    billing_address2 = db.Column(db.String(100), nullable=True)
+    billing_city = db.Column(db.String(30), nullable=True)
+    billing_zip_code = db.Column(db.String(10), nullable=True)
     email_address = db.Column(db.String(100), nullable=False, unique=True)
     password_hash = db.Column(db.String(60), nullable=False)
     budget = db.Column(db.Integer, nullable=False, default=1000) 
