@@ -151,9 +151,11 @@ def registerPage():
 
         return redirect(url_for('shopPage'))
     
-    if form.errors != {}: # If there are not errors from the validations
-        for err_msg in form.errors.values():
-            flash(f'{err_msg}', category='danger')
+
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in {getattr(form, field).label.text}: {error}", category='danger')
 
     return render_template('register.html', form=form)
 

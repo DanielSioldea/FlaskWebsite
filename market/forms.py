@@ -2,6 +2,20 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from market.models import User
+import re
+
+def password_check(form, field):
+    password = field.data
+    if len(password) >= 6:
+        if not re.search(r'[a-z]', password):
+            raise ValidationError('Password must contain at least one lowercase letter.')
+        elif not re.search(r'[A-Z]', password):
+            raise ValidationError('Password must contain at least one uppercase letter.')
+        elif not re.search(r'[0-9]', password):
+            raise ValidationError('Password must contain at least one digit.')
+        elif not re.search(r'[^a-zA-Z0-9]', password):
+            raise ValidationError('Password must contain at least one special character.')
+
 
 class RegisterForm(FlaskForm):
 
@@ -17,7 +31,7 @@ class RegisterForm(FlaskForm):
 
     username = StringField(label='User Name', validators=[Length(min=3, max=30), DataRequired()])
     email_address = StringField(label='Email Address', validators=[Email(), DataRequired()])
-    password1 = PasswordField(label='Password', validators=[Length(min=6), DataRequired()])
+    password1 = PasswordField(label='Password', validators=[Length(min=6), DataRequired(), password_check])
     password2 = PasswordField(label='Confirm Password', validators=[EqualTo('password1'), DataRequired()])
     submit = SubmitField(label='Submit')
 
