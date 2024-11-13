@@ -1,5 +1,5 @@
 from market import app
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, jsonify
 from market.models import Item, User
 from market.forms import RegisterForm, LoginForm, AddToCart, ReturnItemForm, CheckoutForm
 from market import db
@@ -181,3 +181,14 @@ def logoutPage():
     logout_user()
     flash('You have been logged out!', category='info')
     return redirect(url_for('homePage'))
+
+@app.route('/predict', methods=['POST'])    
+def predict():
+    text = request.get_json().get("message")
+
+    if text == 'hello':
+        response = 'Welcome to Doofenshmirtz Evil Inc. What scheeming do you need help with today?'
+    else:
+        response = 'I am not programmed to respond to that'
+    message = {"answer": response}
+    return jsonify(message)

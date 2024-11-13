@@ -94,25 +94,29 @@
         </div>
     </footer>
 
-    <!-- Chat Button -->
-    <button class="chat-button" onclick="toggleChat()">
-        <img src="{{ url_for('static', filename='images/docpfp.png') }}" alt="Chat" class="chat-button">
-    </button>
+    <div>
+        <!-- Chat Button -->
+        <button class="chat-button" onclick="toggleChat()">
+            <img src="{{ url_for('static', filename='images/docpfp.png') }}" alt="Chat" class="chat-button">
+        </button>
 
-    <!-- Chat Window -->
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header text-center">
-            <h5>Talk with the Doc.</h5>
-            <button type="button" class="close" onclick="toggleChat()">
-                <span>&times;</span>
+        <!-- Chat Window -->
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header text-center">
+                <h5>Talk with the Doc.</h5>
+                <button type="button" class="close" onclick="toggleChat()">
+                    <span>&times;</span>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+
+            <div class="chat-footer">
+                <input type="text" placeholder="Type a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+            <div class="resize-handle"></div>
         </div>
-        <div class="chat-body">
-            <p>Welcome to the chat!</p>
-        </div>
-        <div class="chat-footer">
-            <input type="text" class="form-control" placeholder="Type a message...">
-        </div>
-        <div class="resize-handle"></div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -123,7 +127,11 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 
+    <!-- <script>
+        $SCRIPT_ROOT = "{{ request.script_root | tojson }}";
+    </script> -->
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
 
 
 </body>
