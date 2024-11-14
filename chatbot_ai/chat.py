@@ -6,7 +6,7 @@ from nltk_utils import bag_of_words, tokenize
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('chatbot_ai/training.json', 'r') as f:
+with open('chatbot_ai/training.json', 'r', encoding='utf-8') as f:
     training_data = json.load(f)
 
 FILE = "chatbot_ai/data.pth"
