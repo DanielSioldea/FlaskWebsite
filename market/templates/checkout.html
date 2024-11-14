@@ -16,7 +16,7 @@
                             <div class="col-sm-6 mb-2">
                                 <label for="firstName" class="form-label">First name</label>
                                 {{ checkout_form.first_name(class="form-control form-line", id="firstName",
-                                placeholder="")}}
+                                placeholder="John")}}
                                 <div class="invalid-feedback">
                                     {{ checkout_form.first_name.errors[0] if checkout_form.first_name.errors else 'Valid
                                     first name is required.' }}
@@ -26,7 +26,7 @@
                             <div class="col-sm-6 mb-2">
                                 <label for="lastName" class="form-label">Last name</label>
                                 {{ checkout_form.last_name(class="form-control form-line", id="lastName",
-                                placeholder="")}}
+                                placeholder="Smith")}}
                                 <div class="invalid-feedback">
                                     {{ checkout_form.last_name.errors[0] if checkout_form.last_name.errors else 'Valid
                                     last name is required.' }}
@@ -36,7 +36,8 @@
                             <div class="col-12 mb-2">
                                 <label for="email" class="form-label">Email <span
                                         class="text-body-secondary">(Optional)</span></label>
-                                {{ checkout_form.email(class="form-control form-line", id="email", placeholder="")}}
+                                {{ checkout_form.email(class="form-control form-line", id="email",
+                                placeholder="johnsmith@gmail.com")}}
                                 <div class="invalid-feedback">
                                     {{ checkout_form.email.errors[0] if checkout_form.email.errors else 'Valid email is
                                     required.' }}
@@ -45,9 +46,8 @@
 
                             <div class="col-12 mb-2">
                                 <label for="address" class="form-label">Address</label>
-                                {{ checkout_form.address(class="form-control form-line", id="address", placeholder="1234
-                                Main
-                                St")}}
+                                {{ checkout_form.address(class="form-control form-line", id="address",
+                                placeholder="1234 Main St")}}
                                 <div class="invalid-feedback">
                                     {{ checkout_form.address.errors[0] if checkout_form.address.errors else 'Valid
                                     address is required.' }}
@@ -57,8 +57,8 @@
                             <div class="col-12 mb-2">
                                 <label for="address2" class="form-label">Address 2 <span
                                         class="text-body-secondary">(Optional)</span></label>
-                                {{ checkout_form.address2(class="form-control form-line", id="address", placeholder="Apt
-                                #15")}}
+                                {{ checkout_form.address2(class="form-control form-line", id="address",
+                                placeholder="Apt #15") }}
                             </div>
 
                             <div class="col-12 mb-2">
