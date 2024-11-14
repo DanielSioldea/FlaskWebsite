@@ -1,9 +1,12 @@
+import sys
+sys.path.append('chatbot_ai')
 from market import app
 from flask import render_template, redirect, url_for, flash, request, session, jsonify
 from market.models import Item, User
 from market.forms import RegisterForm, LoginForm, AddToCart, ReturnItemForm, CheckoutForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
+from chatbot_ai.chat import get_response
 
 @app.route('/')
 @app.route('/home')
@@ -186,9 +189,11 @@ def logoutPage():
 def predict():
     text = request.get_json().get("message")
 
-    if text == 'hello':
-        response = 'Welcome to Doofenshmirtz Evil Inc. What scheeming do you need help with today?'
-    else:
-        response = 'I am not programmed to respond to that'
+    # if text == 'hello':
+    #     response = 'Welcome to Doofenshmirtz Evil Inc. What scheeming do you need help with today?'
+    # else:
+    #     response = 'I am not programmed to respond to that'
+
+    response = get_response(text)
     message = {"answer": response}
     return jsonify(message)
