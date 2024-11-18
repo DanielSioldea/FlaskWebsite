@@ -103,9 +103,14 @@
         <!-- Chat Window -->
         <div class="chat-window" id="chatWindow">
             <div class="chat-header text-center">
-                <h5>Talk with the Doc.</h5>
-                <button type="button" class="close" onclick="toggleChat()">
-                    <span>&times;</span>
+                <div class="chatbox-image">
+                    <img src="{{ url_for('static', filename='images/docpfp.png') }}" alt="Chat">
+                </div>
+                <div>
+                    <h5>Talk with the Doc.</h5>
+                    <button type="button" class="close" onclick="toggleChat()">
+                        <span>&times;</span>
+                </div>
             </div>
             <div class="chatbox__messages">
                 <div></div>

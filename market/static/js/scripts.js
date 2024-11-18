@@ -139,18 +139,60 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 })()
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const cartCount = parseInt(document.getElementById('cart-count').getAttribute('data-cart-count'), 10) || 0;
     const checkoutButton = document.querySelector('.btn-primary[type="submit"]');
 
     // Disable the button if cart is empty
     checkoutButton.disabled = (cartCount === 0);
+
+    // JS to perform correct expiration date formatting
+    var expirationInput = document.getElementById('cc-expiration');
+    expirationInput.addEventListener('input', function (e) {
+        var value = e.target.value.replace(/\D/g, '');
+        if (value.length > 4) {
+            value = value.slice(0, 4);
+        }
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2);
+        }
+        e.target.value = value;
+    });
+
+    expirationInput.addEventListener('keydown', function (e) {
+        var value = e.target.value;
+        if (e.key === 'Backspace' && value.length === 3 && value.includes('/')) {
+            expirationInput.value = value.slice(0, -1);
+        }
+    });
+
+    // JS to perform correct CVV formatting
+    var cvvInput = document.getElementById('cc-cvv');
+    cvvInput.addEventListener('input', function (e) {
+        var value = e.target.value.replace(/\D/g, '');
+        if (value.length > 3) {
+            value = value.slice(0, 3);
+        }
+        e.target.value = value;
+    });
+
+    // JS to perform correct card number formatting
+    var cardNumberInput = document.getElementById('cc-number');
+    cardNumberInput.addEventListener('input', function (e) {
+        var value = e.target.value.replace(/\D/g, '');
+        if (value.length > 16) {
+            value = value.slice(0, 16);
+        }
+        value = value.match(/.{1,4}/g);
+        if (value) {
+            value = value.join(' ');
+        }
+        e.target.value = value;
+    });
+
 });
 
-
-
+// JS to handle the logout confirmation
 document.addEventListener('DOMContentLoaded', function () {
     const logoutLink = document.getElementById('logoutLink');
 

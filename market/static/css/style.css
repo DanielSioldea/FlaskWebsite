@@ -159,6 +159,7 @@ body {
     background-color: #484f55;
     color: white;
     padding: 10px;
+    position: sticky;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -172,6 +173,12 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.chatbox-image img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
 }
 
 .chat-body {
